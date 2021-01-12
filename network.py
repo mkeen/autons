@@ -8,8 +8,11 @@ import logging.handlers
 
 logger = logging.getLogger('autonslog')
 logger.setLevel(logging.DEBUG)
-handler = logging.handlers.SysLogHandler(address = '/dev/log')
+handler = logging.handlers.SysLogHandler(address='/dev/log')
 logger.addHandler(handler)
+
+def log(message, level='info'):
+	getattr(logger, level)(f"keen autons: {message}")
 
 NS = 0
 HOST = 1
@@ -24,12 +27,6 @@ remote_providers = [
 ]
 
 random.shuffle(remote_providers)
-
-def log(message, level='info'):
-	prefix = 'keen autons:'
-	message = f"{prefix} {message}"
-	logfn = getattr(logger, level)
-	logfn(message)
 
 log('checking public ip', 'info')
 
