@@ -25,17 +25,17 @@ remote_providers = [
 
 random.shuffle(remote_providers)
 
-def log(message, level=logging.INFO):
+def log(message, level='info'):
 	prefix = 'keen autons:'
 	message = f"{prefix} {message}"
 	logfn = getattr(logger, level)
 	logfn(message)
 
-log('checking public ip', logging.INFO)
+log('checking public ip', 'info')
 
 for provider in remote_providers:
 	try:
-		log(f"resolving {provider[HOST]}/{provider[REC]}", logging.DEBUG)
+		log(f"resolving {provider[HOST]}/{provider[REC]}", 'debug')
 		resolver.nameservers=[socket.gethostbyname(provider[NS])]
 		ip_address = resolver.resolve(provider[HOST], provider[REC])[0].to_text().replace('"', '')
 		break
@@ -50,5 +50,5 @@ if ip_address:
 	}))
 	sys.exit(0)
 else:
-	log(f"couldn't contact any providers {sys.exc_info()[0]}", logging.CRITICAL)
+	log(f"couldn't contact any providers {sys.exc_info()[0]}", 'critical')
 	sys.exit(1)
