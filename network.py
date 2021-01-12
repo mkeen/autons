@@ -34,11 +34,9 @@ def log(message, level=DEBUG):
 	if level is DEBUG:
 		return logger.debug(f"{prefix} {message}")
 	elif level is ERROR:
-		pass
+		return logger.error(f"{prefix} {message}")
 	elif level is FATAL:
-		pass
-	else
-		pass
+		return logger.fatal(f"{prefix} {message}")
 
 for provider in remote_providers:
 	try:
