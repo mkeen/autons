@@ -29,7 +29,7 @@ for provider in remote_providers:
 if ip_address:
 	print(json.dumps({
 		'public_ip': ip_address,
-		'hostname': socket.gethostname()
+		'hostname': f"{socket.gethostname()}.knoc"
 	}))
 	sys.exit(0)
 else:
