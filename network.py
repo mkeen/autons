@@ -39,7 +39,7 @@ for provider in remote_providers:
 		ip_address = resolver.resolve(provider[HOST], provider[REC])[0].to_text().replace('"', '')
 		break
 	except:
-		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", logging.WARNING)
+		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", 'warning')
 		pass
 		
 if ip_address:
