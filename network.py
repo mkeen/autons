@@ -1,3 +1,5 @@
+#/python
+
 import socket
 import dns.resolver
 import json
