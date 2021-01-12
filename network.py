@@ -15,6 +15,9 @@ logger.addHandler(handler)
 
 def log(message, level='info'):
 	getattr(logger, level)(f"keen autons: {message}")
+	
+def text(input):
+	return input.to_text().replace('"', '')
 
 NS = 0
 HOST = 1
@@ -36,12 +39,12 @@ ip_address = None
 
 for provider in remote_providers:
 	try:
-		log(f"resolving {provider[HOST]}/{provider[REC]}", 'debug')
+		log(f"resolving {provider[HOST]}/{provider[REC]}")
 		resolver.nameservers=[socket.gethostbyname(provider[NS])]
-		ip_address = resolver.resolve(provider[HOST], provider[REC])[0].to_text().replace('"', '')
+		ip_address = text(resolver.resolve(provider[HOST], provider[REC])[0])
 		break
 	except:
-		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", 'warning')
+		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", 'error')
 		pass
 		
 if ip_address:
