@@ -32,6 +32,8 @@ random.shuffle(remote_providers)
 
 log('checking public ip', 'info')
 
+ip_address = None
+
 for provider in remote_providers:
 	try:
 		log(f"resolving {provider[HOST]}/{provider[REC]}", 'debug')
