@@ -14,6 +14,7 @@ logger.addHandler(handler)
 DEBUG = 'debug'
 ERROR = 'error'
 FATAL = 'fatal'
+NOTICE = 'notice'
 
 NS = 0
 HOST = 1
@@ -31,12 +32,11 @@ random.shuffle(remote_providers)
 
 def log(message, level=DEBUG):
 	prefix = 'keen autons:'
-	if level is DEBUG:
-		return logger.debug(f"{prefix} {message}")
-	elif level is ERROR:
-		return logger.error(f"{prefix} {message}")
-	elif level is FATAL:
-		return logger.fatal(f"{prefix} {message}")
+	message = f"{prefix} {message}"
+	logfn = getattr(logger, level)
+	logfn(message)
+
+log('checking public ip', NOTICE)
 
 for provider in remote_providers:
 	try:
