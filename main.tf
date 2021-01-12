@@ -1,9 +1,9 @@
 variable "api_key" {}
 
 provider "vultr" {
-	api_key = var.api_key
-	rate_limit = 3000
-	retry_limit = 5
+  api_key = var.api_key
+  rate_limit = 3000
+  retry_limit = 5
 }
 
 data "external" "network" {
