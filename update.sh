@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 cd /usr/home/mkeen/autons
 . .env/bin/activate

@@ -1,4 +1,4 @@
-#/python
+#!python
 
 import socket
 import dns.resolver
