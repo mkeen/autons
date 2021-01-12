@@ -51,5 +51,5 @@ if ip_address:
 	}))
 	sys.exit(0)
 else:
-	log(f"couldn't contact any providers {sys.exc_info()[0]}", 'critical')
-	sys.exit(1)
+	log(f"couldn't contact any providers", 'critical')
+	sys.exit("couldn't contact any providers")
