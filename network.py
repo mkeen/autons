@@ -11,11 +11,6 @@ logger.setLevel(logging.DEBUG)
 handler = logging.handlers.SysLogHandler(address = '/dev/log')
 logger.addHandler(handler)
 
-DEBUG = 'debug'
-ERROR = 'error'
-FATAL = 'fatal'
-NOTICE = 'notice'
-
 NS = 0
 HOST = 1
 REC = 2
@@ -30,22 +25,22 @@ remote_providers = [
 
 random.shuffle(remote_providers)
 
-def log(message, level=DEBUG):
+def log(message, level=logging.INFO):
 	prefix = 'keen autons:'
 	message = f"{prefix} {message}"
 	logfn = getattr(logger, level)
 	logfn(message)
 
-log('checking public ip', NOTICE)
+log('checking public ip', logging.INFO)
 
 for provider in remote_providers:
 	try:
-		log(f"resolving {provider[HOST]}/{provider[REC]}")
+		log(f"resolving {provider[HOST]}/{provider[REC]}", logging.DEBUG)
 		resolver.nameservers=[socket.gethostbyname(provider[NS])]
 		ip_address = resolver.resolve(provider[HOST], provider[REC])[0].to_text().replace('"', '')
 		break
 	except:
-		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", ERROR)
+		log(f"couldn't resolve provider {provider} {sys.exc_info()[0]}", logging.WARNING)
 		pass
 		
 if ip_address:
@@ -55,5 +50,5 @@ if ip_address:
 	}))
 	sys.exit(0)
 else:
-	log(f"couldn't contact any providers {sys.exc_info()[0]}", FATAL)
+	log(f"couldn't contact any providers {sys.exc_info()[0]}", logging.CRITICAL)
 	sys.exit(1)
