@@ -1,4 +1,6 @@
 variable "api_key" {}
+variable "tld" {}
+variable "parent_subdomain" {}
 
 provider "vultr" {
   api_key = var.api_key
@@ -11,9 +13,24 @@ data "external" "network" {
 }
 
 resource "vultr_dns_record" "dynamic_dns" {
-  domain = "mikekeen.com"
+  domain = var.tld
   type = "A"
-  name = data.external.network.result.hostname
+  name = join(".", [
+    data.external.network.result.hostname,
+    var.parent_subdomain
+  ])
   data = data.external.network.result.public_ip
+  ttl = 3600
+}
+
+resource "vultr_dns_record" "dynamic_dns" {
+  domain = var.tld
+  type = "A"
+  name = join(".", [
+    data.external.network.result.hostname,
+    var.parent_subdomain,
+    "private"
+  ])
+  data = data.external.network.result.private_ip
   ttl = 3600
 }
