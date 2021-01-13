@@ -67,7 +67,7 @@ if ip_address:
 	print(json.dumps({
 		'public_ip': ip_address,
 		'private_ip': private_ip,
-		'hostname': f"{socket.gethostname()}"
+		'hostname': socket.gethostname()
 	}))
 	sys.exit(0)
 else:
