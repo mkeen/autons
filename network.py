@@ -14,7 +14,7 @@ handler = logging.handlers.SysLogHandler(address='/dev/log')
 logger.addHandler(handler)
 
 def log(message, level='info'):
-	getattr(logger, level)(f"keen autons: {message}")
+	getattr(logger, level)(f"keen-autons: {message}")
 	
 def text(input):
 	return input.to_text().replace('"', '')
