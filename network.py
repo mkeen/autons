@@ -15,6 +15,7 @@ logger.addHandler(handler)
 
 def log(message, level='info'):
 	getattr(logger, level)(f"keen-autons: {message}")
+	return message
 	
 def text(input):
 	return input.to_text().replace('"', '')
@@ -54,5 +55,4 @@ if ip_address:
 	}))
 	sys.exit(0)
 else:
-	log(f"couldn't contact any providers", 'critical')
-	sys.exit("couldn't contact any providers")
+	sys.exit(log('couldn\'t contact any providers', 'critical'))
