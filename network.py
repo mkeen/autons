@@ -7,11 +7,23 @@ import sys
 import random
 import logging
 import logging.handlers
+import netifaces
 
 logger = logging.getLogger('autonslog')
 logger.setLevel(logging.DEBUG)
 handler = logging.handlers.SysLogHandler(address='/dev/log')
 logger.addHandler(handler)
+
+interface = 'em0'
+
+def local_ip(interface_name='eth0'):
+	netifaces.ifaddresses(interface_name)
+	return netifaces.ifaddresses(interface_name)[netifaces.AF_INET][0].get('addr', None)
+
+private_ip = local_ip(interface)
+
+if not private_ip:
+	sys.exit(log(f"couldn't get private ip address on {interface}", 'critical'))
 
 def log(message, level='info'):
 	getattr(logger, level)(f"keen-autons: {message}")
@@ -54,6 +66,7 @@ for provider in remote_providers:
 if ip_address:
 	print(json.dumps({
 		'public_ip': ip_address,
+		'private_ip': private_ip,
 		'hostname': f"{socket.gethostname()}.knoc"
 	}))
 	sys.exit(0)
