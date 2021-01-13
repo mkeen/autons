@@ -17,8 +17,11 @@ def log(message, level='info'):
 	getattr(logger, level)(f"keen-autons: {message}")
 	return message
 
+def clean(input):
+	return input.replace('"', '')
+
 def text(input):
-	return input.to_text().replace('"', '')
+	return clean(input.to_text())
 
 NS = 0
 HOST = 1
