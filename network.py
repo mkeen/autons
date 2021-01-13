@@ -16,7 +16,7 @@ logger.addHandler(handler)
 def log(message, level='info'):
 	getattr(logger, level)(f"keen-autons: {message}")
 	return message
-	
+
 def text(input):
 	return input.to_text().replace('"', '')
 
@@ -34,7 +34,7 @@ remote_providers = [
 
 random.shuffle(remote_providers)
 
-log('checking public ip', 'info')
+log('checking public ip')
 
 ip_address = None
 
