@@ -23,7 +23,7 @@ resource "vultr_dns_record" "dynamic_dns" {
   ttl = 3600
 }
 
-resource "vultr_dns_record" "dynamic_dns" {
+resource "vultr_dns_record" "dynamic_private_dns" {
   domain = var.tld
   type = "A"
   name = join(".", [
